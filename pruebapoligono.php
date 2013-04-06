@@ -8,53 +8,43 @@
         <script src="raphael.js" type="text/javascript" charset="utf-8"></script>
         <script src="raphael.free_transform.js" type="text/javascript" charset="utf-8"></script>
         <script src="raphael.polygons.js" type="text/javascript" charset="utf-8"></script>
+        <script src="prueba_poligono.js" type="text/javascript" charset="utf-8"></script>
         
         <script type="text/javascript" charset="utf-8">
-            var r;
-            var poligonoActual = undefined;
-            var listaPoligonos = [];
-            var ft;
-            
             $(function () {
-                r = Raphael("holder");
-                r.rect(0, 0, 800, 600, 5).attr({stroke: "#666"});
-                $("#agregar").click(function(){
-                    cargarPoligono();
-                });
-                $("#listaPoligonos").change(function(){
-                    if (poligonoActual != undefined){
-                        poligonoActual.noEdit();
-                    }
-                    $("#listaPoligonos option:selected").each(function(){
-                        poligonoActual = listaPoligonos[$(this).val()];
-                        poligonoActual.edit();
-                    });
-                });
+                inicializar();
             });
-
-            function cargarPoligono(){
-                if (poligonoActual != undefined){
-                    poligonoActual.noEdit();
-                }
-            
-                poligonoActual = new Polygon(r);
-                poligonoActual.add(
-                      [[100,0],[200,200],[0,100]],//poligono
-                      [20, 20, 20, 100, 200, 100, 200, 200]//bezier
-                      );
-                
-                nombre = prompt("Nombre de la Poligono");
-                l = listaPoligonos.length;
-                $("#listaPoligonos").append("<option id='Poligono_"+l+"' value='"+l+"'>"+nombre+"</option>");
-                listaPoligonos.push(poligonoActual);
-                $("#Poligono_"+l).attr("selected", "selected");
-            }
         </script>
     </head>
     <body>
         <div id="holder"></div>
-        <button id="agregar">Agregar Poligono</button>
-        <select id="listaPoligonos"></select>
-        
+        <button id="agregar">Agregar Poligono</button><br>
+        <button id="borrar">Borrar Poligono</button><br>
+        <button id="liberar">Quitar selección</button><br>
+        Seleccionar poligono: <select id="listaPoligonos"><option id="none" value="-1">Ninguno</select><br>
+        <div id="propiedadesPoligono">
+            <button id="reiniciar">Reiniciar cambios poligono</button><br>
+            Forma Poligono: <select id="formaPoligono">
+                <option value="rectangulo">Rectangulo</option>
+                <option value="cuadrado">Cuadrado</option>
+                <option value="triangulo">Triangulo</option>
+                <option value="trianguloIzquierda">Triangulo izquierda</option>
+                <option value="trianguloDefecha">Triangulo derecha</option>
+                <option value="trapecio">Trapecio</option>
+                <option value="trapecioIzquierda">TrapecioIzquierda</option>
+                <option value="trapecioDerecha">Trapecio Derecha</option>
+                <option value="semicirculo">Semicirculo</option>
+                <option value="casco1">Casco 1</option>
+                <option value="casco2">Casco 2</option>
+                <option value="casco3">Casco 3</option>
+                <option value="circulo">Circulo</option>
+            </select><br>
+            Forma Bezier: <select id="formaBezier">
+                <option value="recta">Recta</option>
+                <option value="curva">Curva libre</option>
+            </select><br>
+            Numero de filas: <input id="numeroFilas" /><br>
+            Cuadros por filas: <div id="cuadrosPorFilas"></div>
+        </div>
     </body>
 </html>

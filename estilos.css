@@ -19,3 +19,7 @@ body {
 #copy a {
     color: #fff;
 }
+
+#propiedadesPoligono{
+    display:none;
+}
